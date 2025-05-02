@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongo-client
+  name: mongo-client
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-client
+  template:
+    metadata:
+      labels:
+        app: mongo-client
+    spec:
+      containers:
+      - image: quay.io/rh_ee_mrudraia/mongo:v1
+        name: mongo-client
+        env:
+        - name: mongo-client_INITDB_ROOT_USERNAME
+          value: 'admin'
+        - name: mongo-client_INITDB_ROOT_PASSWORD
+          value: 'admin'

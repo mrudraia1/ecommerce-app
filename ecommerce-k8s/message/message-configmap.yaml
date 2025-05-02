@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: message-side-configs
+  namespace: ecommerce
+data:
+  PORT: "5000"
+  RABBITMQ_HOST: "rabbitmq.ecommerce.svc.cluster.local"
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_URL: "amqp://admin:admin@rabbitmq.ecommerce.svc.cluster.local:5672"

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-frontend-app
+  namespace: ecommerce
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ecommerce-frontend-app
+  template:
+    metadata:
+      labels:
+        app: ecommerce-frontend-app
+    spec:
+      containers:
+      - image: quay.io/rh_ee_mrudraia/atlan-ecommerce-frontend:v18 #v11
+        name: ecommerce-frontend
+        env:
+          - name: REACT_APP_BACKEND_URL
+            valueFrom:
+              configMapKeyRef:
+                name: frontend-cm
+                key: REACT_APP_BACKEND_URL
+        imagePullPolicy: Always
+

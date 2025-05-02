@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-message-app
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecommerce-message-app
+  template:
+    metadata:
+      labels:
+        app: ecommerce-message-app
+    spec:
+      containers:
+      - image: quay.io/rh_ee_mrudraia/atlan-ecommerce-message:alpha
+        name: ecommerce-message
+        env:
+          - name: MONGODB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mongo-creds
+                key: username
+        
+          - name: MONGODB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongo-creds
+                key: password
+
+          - name: MONGODB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: backend-side-configs
+                key: MONGODB_HOST
+
+          - name: MONGODB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: backend-side-configs
+                key: MONGODB_PORT
+
+          - name: MONGODB_DB
+            valueFrom:
+              configMapKeyRef:
+                name: backend-side-configs
+                key: MONGODB_DB
+        
+          - name: RABBITMQ_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: message-side-configs
+                key: RABBITMQ_HOST
+
+          - name: RABBITMQ_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: message-side-configs
+                key: RABBITMQ_PORT
+
+          - name: RABBITMQ_USER
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-creds
+                key: username
+
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-creds
+                key: username
+
+        imagePullPolicy: Always
+
+        
+            
