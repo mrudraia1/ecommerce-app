@@ -4,7 +4,12 @@ metadata:
   name: ecommerce-backend-app
   namespace: ecommerce
 spec:
-  replicas: 1
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1 
+      maxUnavailable: 1 #
   selector:
     matchLabels:
       app: ecommerce-backend-app
@@ -16,6 +21,13 @@ spec:
       containers:
       - image: quay.io/rh_ee_mrudraia/atlan-ecommerce-backend:alpha #v20
         name: ecommerce-backend
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         env:
           - name: MONGODB_USER
             valueFrom:
