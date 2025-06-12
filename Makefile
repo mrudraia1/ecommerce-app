@@ -13,7 +13,7 @@ image-registry = quay.io/rh_ee_mrudraia
 
 build-frontend: 
 	@echo "Running frontend build"
-	docker build  -t ${image-registry}/atlan-ecommerce-frontend:v18 ecommerce-frontend/
+	docker build  -t ${image-registry}/atlan-ecommerce-frontend:${image-tag} ecommerce-frontend/
 
 push-frontend: 
 	@echo "Pushing frontend image to container registry"

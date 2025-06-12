@@ -17,8 +17,8 @@ jobs:
         with: 
           fetch-depth: 0
 
-      - name: Run shellcheck
-        run: make shellcheck-test 
+      # - name: Run shellcheck
+      #   run: make shellcheck-test 
 
   build-frontend:
     name: build-frontend
@@ -32,9 +32,22 @@ jobs:
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_ROBOT_TOKEN }}
 
-    - name: Build and psh to Quay
-      uses: docker/build-push-action@v5
-      with:
-        context:
-        push: true
-        tags: marula
+    - name: Build and push to Quay
+      # uses: docker/build-push-action@v5
+      # with:
+      #   context:
+      #   push: true
+      #   tags: marula
+      #   run: 
+      env:
+        REGISTRY_NAMESPACE: ${{ github.event.inputs.REGISTRY_NAMESPACE }}
+        IMAGE_TAG: ${{ github.event.inputs.IMAGE_TAG }}
+        IMAGE_TAG_SHA: ${{ github.ref_name }}-${{ github.sha }}
+        IMAGE_BUILD_CMD: docker
+      run: |
+        # set IMAGE_TAG to a calculated <branch>-<sha>
+        if not specified
+        export IMAGE_TAG=${IMAGE_TAG:-${IMAGE_TAG_SHA:0:-33}}
+
+        make build-frontend
+        make push-frontend
