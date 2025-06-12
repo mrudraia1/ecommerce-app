@@ -19,8 +19,8 @@ jobs:
     - name: Download Openshift CLI
       run: curl "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz" --output openshift-client-linux.tar.gz
 
-    - name: Check file
-      run: 
+    # - name: Check file
+    #   run: 
 
     - name: Install the Openshift cli
       run: |
