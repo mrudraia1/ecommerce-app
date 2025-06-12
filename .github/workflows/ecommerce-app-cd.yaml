@@ -19,9 +19,6 @@ jobs:
     - name: Download Openshift CLI
       run: curl "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz" --output openshift-client-linux.tar.gz
 
-    # - name: Check file
-    #   run: 
-
     - name: Install the Openshift cli
       run: |
           tar -xvf openshift-client-linux.tar.gz  
@@ -30,8 +27,16 @@ jobs:
     - name: Check oc version
       run: oc version
 
-    - name: Login to Openshift
-      run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
+    # - name: Login to Openshift
+    #   run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
 
-    - name: Deploy to Openshift
-      run: oc apply -f ecommerce-k8s/
+    # - name: Deploy to Openshift
+    #   run: oc apply -f ecommerce-k8s/
+    - name: Authenticate and set context
+      uses: redhat-actions/oc-login@v1
+      with:
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+        openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+
+    - name: Deploy to openshift
+      run: oc get nodes
