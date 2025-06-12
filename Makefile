@@ -7,9 +7,6 @@
 	push-custom-rabbitmq
 
 
-
-
-
 build-frontend: 
 	@echo "Running frontend build"
 	docker build  -t quay.io/${REGISTRY_NAMESPACE}/atlan-ecommerce-frontend:${IMAGE_TAG} ecommerce-frontend/
@@ -20,19 +17,19 @@ push-frontend:
 
 build-backend: 
 	@echo "Running backend build"
-	docker build -t ${image-registry}/atlan-ecommerce-backend:alpha ecommerce-backend/
+	docker build -t ${REGISTRY_NAMESPACE}/atlan-ecommerce-backend:${IMAGE_TAG} ecommerce-backend/
 
 push-backend: 
 	@echo "Pushing backend build to container registry"
-	docker push ${image-registry}/atlan-ecommerce-backend:alpha
+	docker push ${REGISTRY_NAMESPACE}/atlan-ecommerce-backend:${IMAGE_TAG}
 
 build-message: 
 	@echo "Running message build"
-	docker build  -t ${image-registry}/atlan-ecommerce-message:alpha ecommerce-message/
+	docker build  -t ${REGISTRY_NAMESPACE}/atlan-ecommerce-message:${IMAGE_TAG} ecommerce-message/
 
 push-message: 
 	@echo "Pushing message image to container registry"
-	docker push ${image-registry}/atlan-ecommerce-message:alpha
+	docker push ${REGISTRY_NAMESPACE}/atlan-ecommerce-message:${IMAGE_TAG}
 
 
 build-custom-rabbitmq:
