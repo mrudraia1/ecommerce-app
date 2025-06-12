@@ -1,5 +1,15 @@
 name: Openshift Deployment
 
+on:
+  workflow_dispatch:
+    inputs:
+      REGISTRY_NAMESPACE:
+        required: true
+        default: rh_ee_mrudraia
+      IMAGE_TAG:
+        required: false
+        default: ""
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
