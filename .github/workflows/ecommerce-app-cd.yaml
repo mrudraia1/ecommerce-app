@@ -47,7 +47,7 @@ jobs:
       run: oc apply -f ecommerce-k8s/rabbitmq
 
     - name: Deploy Message service
-      run: oc apply -f exommerce-k8s/message
+      run: oc apply -f ecommerce-k8s/message
 
     - name: Deploy Backend app
       run: oc apply -f ecommerce-k8s/backend
