@@ -23,13 +23,13 @@ jobs:
   build-frontend:
     name: build-frontend
     runs-on: ubuntu-latest
-    inputs:
-      REGISTRY_NAMESPACE:
-        required: true
-        default: rh_ee_mrudraia
-      IMAGE_TAG:
-        required: false
-        default: latest
+    # inputs:
+    #   REGISTRY_NAMESPACE:
+    #     required: true
+    #     default: rh_ee_mrudraia
+    #   IMAGE_TAG:
+    #     required: false
+    #     default: latest
 
     steps:
     - name: check out the repo
@@ -42,11 +42,14 @@ jobs:
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_ROBOT_TOKEN }}
 
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
     - name: Build and push to Quay
-     
       env:
-        REGISTRY_NAMESPACE: ${{ github.event.inputs.REGISTRY_NAMESPACE }}
-        IMAGE_TAG: ${{ github.event.inputs.IMAGE_TAG }}
+        REGISTRY_NAMESPACE: ${{ env.REGISTRY_NAMESPACE }}   #${{ github.event.inputs.REGISTRY_NAMESPACE }} ${{ github.e }}
+        IMAGE_TAG: nightly-tag-${{ steps.date.outputs.date }}
         IMAGE_TAG_SHA: ${{ github.ref_name }}-${{ github.sha }}
         IMAGE_BUILD_CMD: docker
       run: |
