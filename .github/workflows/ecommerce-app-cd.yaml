@@ -13,16 +13,18 @@ on:
 jobs:
   deploy:
     stage: deploy
-    image: {Link: debianmaster/gitlab-oc-cli https://github.com/debianmaster/gitlab-oc-cli}:latest
-    script:
-      - oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
-      - oc project ecommerce-app
-    # runs-on: ubuntu-latest
-    # steps:
-    # - uses: actions/checkout@v3
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
 
-    # - name: Login to Openshift
-    #   run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
+    - name: Download Openshift CLI
+      run: curl "https://downloads-openshift-console.apps.marula-cl.ocs-osd.syseng.devcluster.openshift.com/amd64/linux/oc.tar"
 
-    # - name: Deploy to Openshift
-    #   run: oc apply -f ecommerce-k8s/
+    - name: Install the Openshift cli
+      run: tar -xvf oc.tar | sudo mv oc /usr/local/bin/
+
+    - name: Login to Openshift
+      run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
+
+    - name: Deploy to Openshift
+      run: oc apply -f ecommerce-k8s/
