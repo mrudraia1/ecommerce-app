@@ -1,7 +1,5 @@
 ---
-name: ecommerce app sanity checks
-
-
+name: ecommerce app build and push
 
 on:
   push:
@@ -10,7 +8,6 @@ on:
   pull_request:
     branches: ["*"]
 
-  
 jobs:
   shellcheck:
     name: shellcheck
@@ -20,16 +17,9 @@ jobs:
         with: 
           fetch-depth: 0
 
-  build-frontend:
-    name: build-frontend
+  Build and Push:
+    name: Build and Push to Registry
     runs-on: ubuntu-latest
-    # inputs:
-    #   REGISTRY_NAMESPACE:
-    #     required: true
-    #     default: rh_ee_mrudraia
-    #   IMAGE_TAG:
-    #     required: false
-    #     default: latest
 
     steps:
     - name: check out the repo
