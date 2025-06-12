@@ -24,8 +24,7 @@ jobs:
 
     - name: Install the Openshift cli
       run: |
-          tar -xvf openshift-client-linux.tar.gz 
-          cd openshift-client-linux 
+          tar -xvf openshift-client-linux.tar.gz  
           sudo mv oc /usr/local/bin/
 
     - name: Check oc version
