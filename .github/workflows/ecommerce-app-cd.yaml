@@ -38,6 +38,7 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
         openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
         # certificate_authority_data: ${{ secrets.CA_DATA }}
+        insecure_skip_tls_verify: true
         openshift_username: ${{ vars.OPENSHIFT_USER }}
         openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
 
