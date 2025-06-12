@@ -48,8 +48,8 @@ jobs:
 
     - name: Build and push to Quay
       env:
-        REGISTRY_NAMESPACE: ${{ env.REGISTRY_NAMESPACE }}   #${{ github.event.inputs.REGISTRY_NAMESPACE }} ${{ github.e }}
-        IMAGE_TAG: nightly-tag-${{ steps.date.outputs.date }}
+        REGISTRY_NAMESPACE: ${{ vars.REGISTRY_NAMESPACE }}   #${{ github.event.inputs.REGISTRY_NAMESPACE }} ${{ github.e }}
+        IMAGE_TAG: release-${{ steps.date.outputs.date }}
         IMAGE_TAG_SHA: ${{ github.ref_name }}-${{ github.sha }}
         IMAGE_BUILD_CMD: docker
       run: |
