@@ -7,6 +7,15 @@ on:
   pull_request:
     branches: ["*"]
 
+  workflow_dispatch:
+    inputs:
+      REGISTRY_NAMESPACE:
+        required: true
+        default: rh_ee_mrudraia
+      IMAGE_TAG:
+        required: false
+        default: latest
+
 
 jobs:
   shellcheck:
@@ -45,8 +54,7 @@ jobs:
         IMAGE_TAG_SHA: ${{ github.ref_name }}-${{ github.sha }}
         IMAGE_BUILD_CMD: docker
       run: |
-        # set IMAGE_TAG to a calculated <branch>-<sha>
-        if not specified
+        # set IMAGE_TAG to a calculated <branch>-<sha> if not specified
         export IMAGE_TAG=${IMAGE_TAG:-${IMAGE_TAG_SHA:0:-33}}
 
         make build-frontend

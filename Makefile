@@ -8,16 +8,16 @@
 
 
 
-image-registry = quay.io/rh_ee_mrudraia
-
+REGISTRY_NAMESPACE = quay.io/rh_ee_mrudraia
+IMAGE_TAG = local
 
 build-frontend: 
 	@echo "Running frontend build"
-	docker build  -t ${image-registry}/atlan-ecommerce-frontend:${image-tag} ecommerce-frontend/
+	docker build  -t ${REGISTRY_NAMESPACE}/atlan-ecommerce-frontend:${IMAGE_TAG} ecommerce-frontend/
 
 push-frontend: 
 	@echo "Pushing frontend image to container registry"
-	docker push ${image-registry}/atlan-ecommerce-frontend:v18
+	docker push ${REGISTRY_NAMESPACE}/atlan-ecommerce-frontend:${IMAGE_TAG}
 
 build-backend: 
 	@echo "Running backend build"

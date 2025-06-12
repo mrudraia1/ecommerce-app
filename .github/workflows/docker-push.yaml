@@ -8,7 +8,7 @@ on:
         default: rh_ee_mrudraia
       IMAGE_TAG:
         required: false
-        default: ""
+        default: latest
 
 jobs:
   docker-push:
