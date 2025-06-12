@@ -8,4 +8,4 @@ data:
   MONGODB_HOST: "mongo-svc.ecommerce.svc.cluster.local"
   MONGODB_PORT: "27017"
   MONGODB_DB: "ecommerce"
-  RABBITMQ_URL: "amqp://admin:admin@rabbitmq.ecommerce.svc.cluster.local:5672"
+  # RABBITMQ_URL: "amqp://admin:admin@rabbitmq.ecommerce.svc.cluster.local:5672"

@@ -69,4 +69,21 @@ Kubectl apply -f ecommerce-k8s/mongodb
 Kubectl apply -f ecommerce-k8s/rabbitmq
 
 
+## Secure kubernetes secrets with Sealed Secrets
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.30.0/controller.yaml 
 
+client side
+
+curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.30.0/kubeseal-0.30.0-linux-amd64.tar.gz"
+tar -xvzf kubeseal-0.30.0-linux-amd64.tar.gz kubeseal
+sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+
+
+Generate the public key  from the kubeseal client
+kubeseal --fetch-cert > mycert.pem
+
+Once you have the public key, you can encrypt all your secrets.
+
+cd exommerce-k8s/mongodb
+kubeseal <mongodb-secrets.json >mongodbsealedsecre
+ts.json
