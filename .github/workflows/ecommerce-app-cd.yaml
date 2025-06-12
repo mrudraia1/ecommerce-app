@@ -20,7 +20,7 @@ jobs:
       run: curl "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz" --output openshift-client-linux.tar.gz
 
     - name: Check file
-      run: run ls -la
+      run: ls -la
 
     - name: Install the Openshift cli
       run: tar -xvf openshift-client-linux.tar.gz | cd openshift-client-linux |sudo mv oc /usr/local/bin/
