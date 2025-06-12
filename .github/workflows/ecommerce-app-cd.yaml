@@ -20,7 +20,10 @@ jobs:
       run: curl "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz"
 
     - name: Install the Openshift cli
-      run: tar -xvf oc.tar | sudo mv oc /usr/local/bin/
+      run: tar -xvf openshift-client-linux.tar.gz | cd openshift-client-linux |sudo mv oc /usr/local/bin/
+
+    - name: Check oc version
+      run: oc --version
 
     - name: Login to Openshift
       run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
