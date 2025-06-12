@@ -1,6 +1,14 @@
 ---
 name: ecommerce app sanity checks
 
+inputs:
+  REGISTRY_NAMESPACE:
+    required: true
+    default: rh_ee_mrudraia
+  IMAGE_TAG:
+    required: false
+    default: latest
+
 on:
   push:
     branches: ["master"]
@@ -8,16 +16,7 @@ on:
   pull_request:
     branches: ["*"]
 
-  workflow_dispatch:
-    inputs:
-      REGISTRY_NAMESPACE:
-        required: true
-        default: rh_ee_mrudraia
-      IMAGE_TAG:
-        required: false
-        default: latest
   
-
 jobs:
   shellcheck:
     name: shellcheck
