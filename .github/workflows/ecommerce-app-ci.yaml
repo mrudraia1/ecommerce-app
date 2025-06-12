@@ -7,6 +7,7 @@ on:
   pull_request:
     branches: ["*"]
 
+on:
   workflow_dispatch:
     inputs:
       REGISTRY_NAMESPACE:
@@ -15,7 +16,6 @@ on:
       IMAGE_TAG:
         required: false
         default: latest
-
 
 jobs:
   shellcheck:
@@ -42,12 +42,7 @@ jobs:
         password: ${{ secrets.QUAY_ROBOT_TOKEN }}
 
     - name: Build and push to Quay
-      # uses: docker/build-push-action@v5
-      # with:
-      #   context:
-      #   push: true
-      #   tags: marula
-      #   run: 
+     
       env:
         REGISTRY_NAMESPACE: ${{ github.event.inputs.REGISTRY_NAMESPACE }}
         IMAGE_TAG: ${{ github.event.inputs.IMAGE_TAG }}
