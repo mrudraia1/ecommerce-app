@@ -44,6 +44,10 @@ jobs:
       run: |
         # set IMAGE_TAG to a calculated <branch>-<sha> if not specified
         export IMAGE_TAG=${IMAGE_TAG:-${IMAGE_TAG_SHA:0:-33}}
-        echo ${REGISTRY_NAMESPACE}
+
+        echo "Running build"
+        ls -la
+        
         make build-frontend
+
         make push-frontend
