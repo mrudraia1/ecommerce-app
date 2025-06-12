@@ -1,13 +1,7 @@
 ---
 name: ecommerce app sanity checks
 
-inputs:
-  REGISTRY_NAMESPACE:
-    required: true
-    default: rh_ee_mrudraia
-  IMAGE_TAG:
-    required: false
-    default: latest
+
 
 on:
   push:
@@ -29,6 +23,13 @@ jobs:
   build-frontend:
     name: build-frontend
     runs-on: ubuntu-latest
+    inputs:
+      REGISTRY_NAMESPACE:
+        required: true
+        default: rh_ee_mrudraia
+      IMAGE_TAG:
+        required: false
+        default: latest
 
     steps:
     - name: check out the repo
