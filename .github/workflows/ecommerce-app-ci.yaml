@@ -17,7 +17,7 @@ jobs:
         with: 
           fetch-depth: 0
 
-  Build and Push:
+  Build-and-Push:
     name: Build and Push to Registry
     runs-on: ubuntu-latest
 
