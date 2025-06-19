@@ -61,12 +61,12 @@ app.use((req, res, next) => {
   res.on('finish', () => {
     httpRequestCounter.inc({
       method: req.method,
-      route: req.path,
+      route: ["/products", "/orders"],
       status_code: res.statusCode
     });
     end({
       method: req.method,
-      route: req.path,
+      route: ["/products", "/orders"],
       status_code: res.statusCode
     });
   });
