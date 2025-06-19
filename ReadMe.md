@@ -85,5 +85,7 @@ kubeseal --fetch-cert > mycert.pem
 Once you have the public key, you can encrypt all your secrets.
 
 cd exommerce-k8s/mongodb
-kubeseal <mongodb-secrets.json >mongodbsealedsecre
-ts.json
+kubeseal <mongodb-secrets.json >mongodbsealedsecrets.json
+
+cd ecommerce-k8s/message
+kubeseal <message-secrets.json >messagesealedsecrets.json

@@ -1,12 +1,12 @@
 ---
 name: ecommerce app build and push
 
-# on:
-#   push:
-#     branches: ["master"]
+on:
+  push:
+    branches: ["master"]
 
-#   pull_request:
-#     branches: ["*"]
+  pull_request:
+    branches: ["*"]
 
 jobs:
   shellcheck:
