@@ -81,7 +81,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: rabbitmq-creds
-                key: username
+                key: password
 
         imagePullPolicy: Always
 
