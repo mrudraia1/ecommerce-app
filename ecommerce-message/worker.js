@@ -47,7 +47,7 @@ async function startWorker() {
     const Order = mongoose.model('Order', orderSchema);
 
     // Connect to RabbitMQ
-    const connection = await connectRabbitMQ();
+    const connection = await amqp.connect(RABBITMQ_URL);
     const channel = await connection.createChannel();
     await channel.assertQueue('orderQueue');
     console.log('Waiting for messages...');
