@@ -10,7 +10,6 @@ const RABBITMQ_PASSWORD = process.env.RABBITMQ_PASSWORD;
 
 const RABBITMQ_URL = `amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
 
-console.log(RABBITMQ_URL)
 
 // Order Schema
 const orderSchema = new mongoose.Schema({
@@ -47,7 +46,6 @@ router.post('/', async (req, res) => {
     });
 
     console.log('Order sent to RabbitMQ:', orderData);
-
     await channel.close();
     await connection.close();
 

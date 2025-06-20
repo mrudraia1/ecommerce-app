@@ -4,7 +4,7 @@ metadata:
   name: ecommerce-frontend-app
   namespace: ecommerce
 spec:
-  replicas: 3
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:

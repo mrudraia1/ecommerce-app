@@ -16,10 +16,10 @@ spec:
         app: mongo-client
     spec:
       containers:
-      - image: quay.io/rh_ee_mrudraia/mongo:v1
+      - image: docker.io/mongo
         name: mongo-client
         env:
         - name: mongo-client_INITDB_ROOT_USERNAME
           value: 'admin'
         - name: mongo-client_INITDB_ROOT_PASSWORD
-          value: 'admin'
+          value: 'password123'

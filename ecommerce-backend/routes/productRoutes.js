@@ -8,6 +8,7 @@ router.get('/', async (req, res) => {
     res.json(products);
 });
 
+
 // Create new product
 router.post('/', async (req, res) => {
     const { name, description, price, image } = req.body;
