@@ -2,7 +2,7 @@ apiVersion: "apps/v1"
 kind: "StatefulSet"
 metadata: 
   name: "mongo-db"
-  namespace: "development"
+  namespace: "ecommerce"
 spec:
   serviceName: "mongo-db" 
   replicas: 1
