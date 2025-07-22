@@ -1,23 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
-const client = require('prom-client');
-const register = new client.Registry();
+const promBundle = require("express-prom-bundle");
+const promMiddleware = require('express-red-middleware');
 
 require('dotenv').config();
 
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
-const http_request_counter = new client.Counter({
-  name: 'myapp_http_request_count',
-  help: 'Count of HTTP requests',
-  labelNames: ['method', 'route', 'statusCode'],
-  registers: [register]
-});
+const metricsMiddleware = promBundle({
+  includeMethod: true, 
+  includePath: true, 
+  includeStatusCode: true, 
+  includeUp: true,
+  customLabels: {project_name: 'ecommerce', project_type: 'ecommerce'},
+ });
 
-register.registerMetric(http_request_counter);
+
 
 // express server
 const app = express();
@@ -29,6 +29,8 @@ let corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(metricsMiddleware)
+app.use(promMiddleware.promMiddleware({collectDefaultMetrics: false}));
 
 const IP = process.env.IP || '0.0.0.0';
 const PORT = process.env.PORT || 5000;
@@ -46,13 +48,16 @@ mongoose.connect(MONGO_URL, clientOptions)
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
 
-app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', register.contentType); //client.register.contentType );
-  res.end(await register.metrics());
-});
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+
+app.get("/",(req,res) => res.json({
+  "GET /": "All Routes", 
+  "GET /hello": "{hello:world}", 
+  "GET /metrics": "Metrics data",
+  "POST /bye": "POST Request: + post data"
+ }));
 
 // Start server
 app.listen(PORT, IP, () => console.log(`Server running on ${IP}:${PORT}`));

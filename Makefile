@@ -31,6 +31,14 @@ push-message:
 	@echo "Pushing message image to container registry"
 	docker push quay.io/${REGISTRY_NAMESPACE}/atlan-ecommerce-message:${IMAGE_TAG}
 
+build-mongo-init: 
+	@echo "Running message init"
+	docker build  -t quay.io/${REGISTRY_NAMESPACE}/atlan_ecommerce_mongo_init:${IMAGE_TAG} ecommerce-message/
+
+push-mongo-init: 
+	@echo "Pushing mongo init image to container registry"
+	docker push quay.io/${REGISTRY_NAMESPACE}/atlan_ecommerce_mongo_init:${IMAGE_TAG}
+
 
 build-custom-rabbitmq:
 	@echo "Building the custom rabbitmq"

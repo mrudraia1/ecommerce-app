@@ -12,7 +12,7 @@ function Header({ cart }) {
       marginBottom: '30px'
     }}>
       <div style={{ color: 'white', fontWeight: 'bold', fontSize: '24px' }}>
-        🛍️ Atlan Ecommerce
+        🛍️ Ecommerce
       </div>
       <div>
         <Link to="/" style={{ marginRight: '20px', textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>

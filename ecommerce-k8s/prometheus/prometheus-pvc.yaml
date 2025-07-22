@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongo-data-pvc
+  name: promo-data-pvc
   namespace: ecommerce
 spec:
-  storageClassName: default  #"ocs-storagecluster-ceph-rbd"
+  storageClassName: "ocs-storagecluster-cephfs"
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi

@@ -18,6 +18,40 @@ spec:
       labels:
         app: ecommerce-backend-app
     spec:
+      initContainers:
+      - name: init-myservice
+        image: quay.io/rh_ee_mrudraia/atlan_ecommerce_mongo_init:beta
+        env:
+        - name: MONGODB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: username
+
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-creds
+              key: password
+
+        - name: MONGODB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: backend-side-configs
+              key: MONGODB_HOST
+
+        - name: MONGODB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: backend-side-configs
+              key: MONGODB_PORT
+
+        - name: MONGODB_DB
+          valueFrom:
+            configMapKeyRef:
+              name: backend-side-configs
+              key: MONGODB_DB
+        
       containers:
       - image: quay.io/rh_ee_mrudraia/atlan-ecommerce-backend:alpha #v20
         name: ecommerce-backend
@@ -81,7 +115,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: rabbitmq-creds
-                key: username
+                key: password
 
         ports:
         - containerPort: 5000

@@ -19,38 +19,20 @@ const DB_PORT = process.env.MONGODB_PORT;
 const MONGO_URL = `mongodb://${USER}:${PW}@${HOST}:${DB_PORT}/${DB}?authSource=admin`;
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
+// Connect to MongoDB
+mongoose.connect(MONGO_URL, clientOptions);
 
-async function connectRabbitMQ() {
-  let connection;
-  while (!connection) {
-    try {
-      connection = await amqp.connect(RABBITMQ_URL);
-      console.log("Connected to RabbitMQ");
-      return connection;
-    } catch (err) {
-      console.error("Failed to connect to RabbitMQ, retrying in 5s...");
-      await new Promise(resolve => setTimeout(resolve, 5000));
-    }
-  }
-}
+const orderSchema = new mongoose.Schema({
+  items: Array,
+  createdAt: Date
+});
+
+const Order = mongoose.model('Order', orderSchema);
 
 async function startWorker() {
   try {
-    // Connect to MongoDB
-    await mongoose.connect(MONGO_URL, clientOptions);
-    console.log("Connected to MongoDB");
-
-    const orderSchema = new mongoose.Schema({
-      items: Array,
-      createdAt: Date
-    });
-    const Order = mongoose.model('Order', orderSchema);
-
-    // Connect to RabbitMQ
-    const connection = await connectRabbitMQ();
+    const connection = await amqp.connect(RABBITMQ_URL);
     const channel = await connection.createChannel();
-    await channel.assertQueue('orderQueue');
-    console.log('Waiting for messages...');
     const queue = 'orderQueue';
 
     await channel.assertQueue(queue, { durable: true });
@@ -70,7 +52,7 @@ async function startWorker() {
     }, { noAck: false });
 
   } catch (error) {
-    console.error("Worker error:", error);
+    console.error(error);
   }
 }
 

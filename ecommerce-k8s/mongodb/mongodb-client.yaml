@@ -1,25 +1,32 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: mongo-client
-  name: mongo-client
-  namespace: ecommerce
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: mongo-client
-  template:
-    metadata:
-      labels:
-        app: mongo-client
-    spec:
-      containers:
-      - image: docker.io/mongo
-        name: mongo-client
-        env:
-        - name: mongo-client_INITDB_ROOT_USERNAME
-          value: 'admin'
-        - name: mongo-client_INITDB_ROOT_PASSWORD
-          value: 'password123'
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app: mongo-client
+#   name: mongo-client
+#   namespace: ecommerce
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mongo-client
+#   template:
+#     metadata:
+#       labels:
+#         app: mongo-client
+#     spec:
+#       containers:
+#       - image: docker.io/mongo:5.0
+#         name: mongo-client
+#         env:
+#         - name: mongo-client_INITDB_ROOT_USERNAME
+#           value: 'admin'
+#         - name: mongo-client_INITDB_ROOT_PASSWORD
+#           value: 'password123'
+#         volumeMounts:
+#         - name: mongo-data-dir
+#           mountPath: /data/db
+#       volumes:
+#       - name: mongo-data-dir
+#         persistentVolumeClaim:
+#           claimName: mongo-data-pvc
